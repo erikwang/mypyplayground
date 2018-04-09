@@ -1,0 +1,30 @@
+##Question
+#Suppose the cover price of a book is $24.95, but bookstores get a 40% discount. Shipping costs
+#$3 for the first copy and 75 cents for each additional copy. What is the total wholesale cost for
+#60 copies?
+def getTotalPrice(numberofcopies):
+    price = 24.99
+    discountrate = 0.6
+    #numberofcopies = 60
+    shipcost = 3
+    shipdiscount = 0.75
+    if numberofcopies > 1:
+        totalprice = numberofcopies*price*discountrate + (numberofcopies - 1)* (shipcost - shipdiscount) + shipcost
+    elif numberofcopies > 0:
+        totalprice = price*discountrate+shipcost
+    print('Total price is:%.2f' % totalprice)
+    print('Total price is:', int(totalprice))
+    print('')
+
+
+
+def main():
+    while 1:
+        try:
+            numberofcopies=int(input('Input how many copies:'))
+        except ValueError:
+            print("Not a number.")
+        getTotalPrice(numberofcopies)
+
+if __name__ == "__main__":
+        main()
