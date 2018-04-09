@@ -28,3 +28,7 @@ def main():
 
 if __name__ == "__main__":
         main()
+
+
+def sumall(list_of_numbers):
+    reduce(lambda x, y: (x + y), list_of_numbers)
