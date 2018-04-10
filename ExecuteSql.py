@@ -1,4 +1,6 @@
 import mysql.connector
+import pandas
+
 print("Prepare to connect to database...")
 cnx = mysql.connector.connect(user='retainread', password='Letmein123', host='9.21.59.214', database='ccwinextension')
 cursor = cnx.cursor()
@@ -35,9 +37,19 @@ print(result.__sizeof__())
 print("executing...")
 
 #for (SHORT_NAME, Outstanding, Closed, New_incoming) in cursor:
+s = [] #Empty list
 for row in result:
-    print("..")
-#    print("{},{},{},{}".format(SHORT_NAME, Outstanding, Closed, New_incoming))
-    print(row)
+    r = []
+    r.append(row)
+    d = {} #Empty dictionary
+    d["OWNER"] = r[0][0]
+    d["Outstanding"] = r[0][1]
+    d["Closed"] = r[0][2]
+    d["Incoming"] = r[0][3]
+    s.append(d)
+    #print(row)
+
+Table = pandas.DataFrame(s)
+print(Table)
 cursor.close()
 cnx.close()
