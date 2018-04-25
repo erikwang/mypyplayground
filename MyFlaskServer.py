@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask
 from flask_restful import Resource, Api
 import mysql.connector
 import pandas
@@ -89,11 +89,21 @@ class CaseReport(Resource):
         #DD has 3 keys: version, CaseList and Update. CaseList is a list of every record.
         return dd
 
+class CaseReportDemo(Resource):
+    def get(self):
+        dd = defaultdict(list)
+        r = []
+        for i in range(1,3):
+            r.append([strftime("%Y-%m-%d %H:%M:%S",gmtime()),i])
+        dd["Version"] = "Random"
+        dd["CaseList"] = r
+        return dd
 
 
 api.add_resource(WhateverToShow,'/whatever')
 api.add_resource(DefaultURI,'/')
 api.add_resource(CaseReport,'/case')
+api.add_resource(CaseReportDemo,'/casedemo')
 
 if __name__ == '__main__':
      app.run(port= 5002)
