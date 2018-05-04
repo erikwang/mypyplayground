@@ -10,6 +10,8 @@ def handle_user_command(x,dbconnection):
         "iow": "insertOneWrongRecord",
         "sc" : "showCollection",
         "dm" : "dummy",
+        "ag" : "doAggregation",
+        "by" : "exit",
     }.get(x, "Invalid command")
 
 def RunMe():
@@ -21,17 +23,14 @@ def RunMe():
         raise SystemExit
 
     while 1:
-        user_command = input("Please enter a command (cc/io/iow/sc/dm): ")
+        user_command = input("Please enter a command (cc/io/iow/sc/dm/ag/by): ")
         execute_method = handle_user_command(user_command,dbconnection)
         if execute_method != "Invalid command":
             result = getattr(PlayCollection,execute_method)(dbconnection,"ekcollection")
             print("Command run successfully, exit message is {0}".format(result))
         else:
             print(execute_method)
-
-
     print("Done")
-
 
 def getDBConnection():
     # getpass will not work in IDE environment but works in jupyter
@@ -65,6 +64,7 @@ class PlayCollection(object):
 
     def showCollection(MongoClient,dummyarg):
         Collections = MongoClient.collection_names()
+        print("Found {0} collection(s)".format(len(Collections)))
         if len(Collections) > 3:
             # Get a confirmation (y) from console
             flag = input(
@@ -77,15 +77,25 @@ class PlayCollection(object):
 
         # To traversal all collections in a db
         for my_collection in Collections:
+            print("+--------------------------+")
             print("Print one record in collection [{0}]".format(MongoClient[my_collection].full_name))
             print("Total records in collection <{0}>".format(MongoClient[my_collection].count()))
             # print(dbclient[my_collection].explain())
 
             pprint.pprint(MongoClient[my_collection].find_one())
-            print("==================")
+            print("+--------------------------+")
 
     def dummy(dummyarg0,dummyarg1):
         return 'Dummy'
+
+    def doAggregation(MongoClient,dummyarg1):
+        pipeline = [
+        {"$group": {
+            "_id":  {"owner":"$OWNER_NAME", "status":"$STATUS"}, "count": { "$sum": 1}}}
+        ]
+
+        #Connect to DB.Collection and call the aggregate based on the pipeline
+        pprint.pprint(list(MongoClient.pmrs.aggregate(pipeline)))
 
 if __name__ == "__main__":
     RunMe()

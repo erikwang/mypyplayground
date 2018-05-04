@@ -72,9 +72,7 @@ def getPMRReport():
     #return s
     return Table
 
-
 class MyHandler(BaseHTTPRequestHandler):
-
     def do_HEAD(s):
         s.send_response(200)
         s.send_header("Content-type", "text/html")
@@ -100,6 +98,7 @@ except KeyboardInterrupt:
     httpd.socket.close()
 
 def main():
+    print("Http server is ready, please use localhost:8999/getPMR to check the result.")
     getPMRReport()
 
 if __name__ == "__main__":
