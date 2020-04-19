@@ -1,0 +1,95 @@
+Welcome to Cloud Shell! Type "help" to get started.
+Your Cloud Platform project in this session is set to intrepid-league-265404.
+Use “gcloud config set project [PROJECT_ID]” to change to a different project.
+
+ekgcp2020@cloudshell:~ (intrepid-league-265404)$ git clone https://github.com/GoogleCloudPlatform/python-docs-samples
+Cloning into 'python-docs-samples'...
+remote: Enumerating objects: 23, done.
+remote: Counting objects: 100% (23/23), done.
+remote: Compressing objects: 100% (23/23), done.
+remote: Total 28329 (delta 8), reused 5 (delta 0), pack-reused 28306
+Receiving objects: 100% (28329/28329), 39.19 MiB | 45.63 MiB/s, done.
+Resolving deltas: 100% (14982/14982), done.
+
+ekgcp2020@cloudshell:~/python-docs-samples (intrepid-league-265404)$ cd appengine/
+ekgcp2020@cloudshell:~/python-docs-samples/appengine (intrepid-league-265404)$ ll
+total 20
+drwxr-xr-x  5 ekgcp2020 ekgcp2020 4096 Apr 19 14:28 ./
+drwxr-xr-x 65 ekgcp2020 ekgcp2020 4096 Apr 19 14:28 ../
+drwxr-xr-x 26 ekgcp2020 ekgcp2020 4096 Apr 19 14:28 flexible/
+drwxr-xr-x 38 ekgcp2020 ekgcp2020 4096 Apr 19 14:28 standard/
+drwxr-xr-x 13 ekgcp2020 ekgcp2020 4096 Apr 19 14:28 standard_python37/
+ekgcp2020@cloudshell:~/python-docs-samples/appengine (intrepid-league-265404)$ cd standard_python37/
+
+
+ekgcp2020@cloudshell:~/python-docs-samples/appengine/standard_python37/hello_world (intrepid-league-265404)$ vi main.py
+ekgcp2020@cloudshell:~/python-docs-samples/appengine/standard_python37/hello_world (intrepid-league-265404)$ virtualenv --python python3 ~/envs/hello_world
+created virtual environment CPython3.7.3.final.0-64 in 419ms
+  creator CPython3Posix(dest=/home/ekgcp2020/envs/hello_world, clear=False, global=False)
+  seeder FromAppData(download=False, pip=latest, setuptools=latest, wheel=latest, via=copy, app_data_dir=/home/ekgcp2020/.local/share/virtualenv/seed-app-data/v1.0.1)
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+ekgcp2020@cloudshell:~/python-docs-samples/appengine/standard_python37/hello_world (intrepid-league-265404)$ source ~/envs/hello_world/bin/activate
+(hello_world) ekgcp2020@cloudshell:~/python-docs-samples/appengine/standard_python37/hello_world (intrepid-league-265404)$ pip install -r requirements.txt
+Collecting Flask==1.1.2
+  Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)
+     |████████████████████████████████| 94 kB 1.6 MB/s
+Collecting Werkzeug>=0.15
+  Downloading Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)
+     |████████████████████████████████| 298 kB 7.8 MB/s
+Collecting Jinja2>=2.10.1
+  Downloading Jinja2-2.11.2-py2.py3-none-any.whl (125 kB)
+     |████████████████████████████████| 125 kB 9.3 MB/s
+Collecting click>=5.1
+  Downloading click-7.1.1-py2.py3-none-any.whl (82 kB)
+     |████████████████████████████████| 82 kB 1.2 MB/s
+Collecting itsdangerous>=0.24
+  Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+Collecting MarkupSafe>=0.23
+  Downloading MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl (27 kB)
+Installing collected packages: Werkzeug, MarkupSafe, Jinja2, click, itsdangerous, Flask
+Successfully installed Flask-1.1.2 Jinja2-2.11.2 MarkupSafe-1.1.1 Werkzeug-1.0.1 click-7.1.1 itsdangerous-1.1.0
+(hello_world) ekgcp2020@cloudshell:~/python-docs-samples/appengine/standard_python37/hello_world (intrepid-league-265404)$ python main.py
+ * Serving Flask app "main" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 136-238-953
+127.0.0.1 - - [19/Apr/2020 14:30:22] "GET /?authuser=3 HTTP/1.1" 200 -
+^C(hello_world) ekgcp2020@cloudshell:~/python-docs-samples/appengine/standard_python37/hello_world (intrepid-league-265404)$ gcloud app create
+ERROR: (gcloud.app.create) The project [intrepid-league-265404] already contains an App Engine application in region [us-east1].  You can deploy your application using `gcloud app deploy`.
+(hello_world) ekgcp2020@cloudshell:~/python-docs-samples/appengine/standard_python37/hello_world (intrepid-league-265404)$ gcloud app deploy app.yaml --project intrepid-league-265404
+
+
+Services to deploy:
+
+descriptor:      [/home/ekgcp2020/python-docs-samples/appengine/standard_python37/hello_world/app.yaml]
+source:          [/home/ekgcp2020/python-docs-samples/appengine/standard_python37/hello_world]
+target project:  [intrepid-league-265404]
+target service:  [default]
+target version:  [20200419t143043]
+target url:      [https://intrepid-league-265404.ue.r.appspot.com]
+
+
+Do you want to continue (Y/n)?  y
+
+Beginning deployment of service [default]...
+Created .gcloudignore file. See `gcloud topic gcloudignore` for details.
+╔════════════════════════════════════════════════════════════╗
+╠═ Uploading 6 files to Google Cloud Storage                ═╣
+╚════════════════════════════════════════════════════════════╝
+File upload done.
+Updating service [default]...⠛
+Updating service [default]...done.
+Setting traffic split for service [default]...done.
+Deployed service [default] to [https://intrepid-league-265404.ue.r.appspot.com]
+
+You can stream logs from the command line by running:
+  $ gcloud app logs tail -s default
+
+To view your application in the web browser run:
+  $ gcloud app browse
+(hello_world) ekgcp2020@cloudshell:~/python-docs-samples/appengine/standard_python37/hello_world (intrepid-league-265404)$
