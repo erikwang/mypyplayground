@@ -93,3 +93,14 @@ You can stream logs from the command line by running:
 To view your application in the web browser run:
   $ gcloud app browse
 (hello_world) ekgcp2020@cloudshell:~/python-docs-samples/appengine/standard_python37/hello_world (intrepid-league-265404)$
+
+
+////
+
+Run in backgroud after ssh disconnect
+ssh [server]
+command
+Ctrl+Z
+bg
+disown [process pid optional, defaults to last]
+exit
